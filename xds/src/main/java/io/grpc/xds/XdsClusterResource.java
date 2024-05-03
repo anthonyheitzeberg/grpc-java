@@ -168,7 +168,7 @@ class XdsClusterResource extends XdsResourceType<CdsUpdate> {
     String clusterName = cluster.getName();
     Cluster.CustomClusterType customType = cluster.getClusterType();
     String typeName = customType.getName();
-    if (!typeName.equals(AGGREGATE_CLUSTER_TYPE_NAME)) {
+    if (!AGGREGATE_CLUSTER_TYPE_NAME.equals(typeName)) {
       return StructOrError.fromError(
           "Cluster " + clusterName + ": unsupported custom cluster type: " + typeName);
     }
