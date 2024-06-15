@@ -19,6 +19,7 @@ package io.grpc.util;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import java.security.SecureRandom;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -838,7 +839,7 @@ public final class OutlierDetectionLoadBalancer extends LoadBalancer {
                           + "requiredSuccessRate={4}",
                   tracker, tracker.successRate(),  mean, stdev, requiredSuccessRate);
           // Only eject some endpoints based on the enforcement percentage.
-          if (new Random().nextInt(100) < config.successRateEjection.enforcementPercentage) {
+          if (new SecureRandom().nextInt(100) < config.successRateEjection.enforcementPercentage) {
             tracker.ejectSubchannels(ejectionTimeNanos);
           }
         }
@@ -915,7 +916,7 @@ public final class OutlierDetectionLoadBalancer extends LoadBalancer {
                   "FailurePercentage algorithm detected outlier: {0}, failureRate={1}",
                   tracker, tracker.failureRate());
           // ...but only enforce this based on the enforcement percentage.
-          if (new Random().nextInt(100) < config.failurePercentageEjection.enforcementPercentage) {
+          if (new SecureRandom().nextInt(100) < config.failurePercentageEjection.enforcementPercentage) {
             tracker.ejectSubchannels(ejectionTimeNanos);
           }
         }
